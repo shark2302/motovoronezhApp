@@ -25,8 +25,18 @@ public class LoginScreen : MonoBehaviour
 		{
 			AppController.RequestManager.SendLoginRequest(login, password, (result, code) =>
 			{
-				Debug.Log(code);
-				//UserManager.SaveUserData(result);
+				switch (code)
+				{
+					case 200:
+						UserManager.SaveUserData(result);
+						break;
+					case 401:
+						AppController.WindowManager.ShowInfoPopup("Неправильные данные", "Вы ввели неверный пароль или логин. Попробуйте еще раз");
+						break;
+					default:
+						AppController.WindowManager.ShowInfoPopup("Непредвиденная ошибка", "Проверьте соединение с интернетом");
+						break;
+				}
 			});
 		}
 	}
