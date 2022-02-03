@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LoginScreen : MonoBehaviour
 {
-	
-	[SerializeField]
-	private RequestManager _requestManager;
-	
 	[SerializeField] 
 	private String SignUpURL;
 	
@@ -25,7 +22,7 @@ public class LoginScreen : MonoBehaviour
 		var password = _passwordField.text;
 		Debug.Log(login);
 		Debug.Log(password);
-		_requestManager.SendLoginRequest(login, password, result => { Debug.Log(result.token);} );
+		AppController.RequestManager.SendLoginRequest(login, password, result => { Debug.Log(result.token);} );
 	}
 
 	public void OnSignUpButtonClicked()
