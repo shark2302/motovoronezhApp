@@ -21,6 +21,7 @@ public class LoginScreen : Screen
 	{
 		var login = _loginField.text;
 		var password = _passwordField.text;
+		
 		if (login != String.Empty && password != String.Empty)
 		{
 			AppController.RequestManager.SendLoginRequest(login, password, (result, code) =>
@@ -41,7 +42,7 @@ public class LoginScreen : Screen
 		}
 		else
 		{
-			AppController.WindowManager.ShowInfoPopup("Нет данных", "Вы ничего не ввели"); 
+			AppController.WindowManager.ShowInfoPopup("Нет данных", "Вы ничего не ввели");
 		}
 	}
 
