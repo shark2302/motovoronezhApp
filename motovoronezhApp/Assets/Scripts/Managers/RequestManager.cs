@@ -16,7 +16,7 @@ public class RequestManager : MonoBehaviour
         AppController.RequestManager = this;
     }
 
-    public void SendLoginRequest(string login, string password, Action<LoginRequest.LoginRequestResult> callback)
+    public void SendLoginRequest(string login, string password, Action<LoginRequest.LoginRequestResult, int> callback)
     {
         StartCoroutine(new LoginRequest(_url + "login", login, password, callback).Send());
     }

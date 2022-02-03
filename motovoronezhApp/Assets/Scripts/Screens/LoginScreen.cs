@@ -21,9 +21,14 @@ public class LoginScreen : MonoBehaviour
 	{
 		var login = _loginField.text;
 		var password = _passwordField.text;
-		Debug.Log(login);
-		Debug.Log(password);
-		AppController.RequestManager.SendLoginRequest(login, password, result => {UserManager.SaveUserData(result);} );
+		if (login != String.Empty && password != String.Empty)
+		{
+			AppController.RequestManager.SendLoginRequest(login, password, (result, code) =>
+			{
+				Debug.Log(code);
+				//UserManager.SaveUserData(result);
+			});
+		}
 	}
 
 	public void OnSignUpButtonClicked()

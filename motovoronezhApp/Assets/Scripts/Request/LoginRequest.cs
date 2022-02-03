@@ -26,9 +26,9 @@ namespace Request
 
         private string _login;
         private string _password;
-        private Action<LoginRequestResult> _callback;
+        private Action<LoginRequestResult, int> _callback;
 
-        public LoginRequest(string url, string login, string password, Action<LoginRequestResult> callback) : base(url)
+        public LoginRequest(string url, string login, string password, Action<LoginRequestResult, int> callback) : base(url)
         {
             _login = login;
             _password = password;
@@ -38,6 +38,7 @@ namespace Request
 
         public override IEnumerator Send()
         {
+            Debug.Log("[LoginRequest] Sending...");
             WWWForm formData = new WWWForm();
 
             LoginRequestStruct postData = new LoginRequestStruct()
@@ -59,11 +60,21 @@ namespace Request
             request.SetRequestHeader("Content-Type", "application/json");
 
             yield return request.SendWebRequest();
-
-            Debug.Log(request.downloadHandler.text);
-            LoginRequestResult result = JsonUtility.FromJson<LoginRequestResult>(request.downloadHandler.text);
+            if (request.responseCode == 200)
+            {
+                Debug.Log("[Login Request]:"  + request.downloadHandler.text);
+                LoginRequestResult result = JsonUtility.FromJson<LoginRequestResult>(request.downloadHandler.text);
             
-            _callback(result);
+                _callback(result, 200);
+            }
+            else if(request.responseCode == 401)
+            {
+                _callback(new LoginRequestResult(), 401);
+            }
+            else
+            {
+                _callback(new LoginRequestResult(), 500);
+            }
         }
     }
 }

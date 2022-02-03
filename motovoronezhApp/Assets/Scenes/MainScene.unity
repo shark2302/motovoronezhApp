@@ -145,7 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8c9c061f2086b48acc9756d0051fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _requestManager: {fileID: 1724986237}
   SignUpURL: http://motovoronezh.ru/forum/reg.php
   _loginField: {fileID: 1116819737}
   _passwordField: {fileID: 954009286}
