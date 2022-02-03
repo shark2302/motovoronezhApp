@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using DefaultNamespace.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,7 @@ public class LoginScreen : MonoBehaviour
 		var password = _passwordField.text;
 		Debug.Log(login);
 		Debug.Log(password);
-		AppController.RequestManager.SendLoginRequest(login, password, result => { Debug.Log(result.token);} );
+		AppController.RequestManager.SendLoginRequest(login, password, result => {UserManager.SaveUserData(result);} );
 	}
 
 	public void OnSignUpButtonClicked()
