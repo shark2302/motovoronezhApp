@@ -6,8 +6,6 @@ namespace Request
 {
     public abstract class RequestBase
     {
-        
-        
         protected string _url;
 
         public RequestBase(string url)

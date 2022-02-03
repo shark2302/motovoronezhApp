@@ -6,7 +6,7 @@ using DefaultNamespace.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginScreen : MonoBehaviour
+public class LoginScreen : Screen
 {
 	[SerializeField] 
 	private String SignUpURL;
@@ -38,6 +38,10 @@ public class LoginScreen : MonoBehaviour
 						break;
 				}
 			});
+		}
+		else
+		{
+			AppController.WindowManager.ShowInfoPopup("Нет данных", "Вы ничего не ввели"); 
 		}
 	}
 

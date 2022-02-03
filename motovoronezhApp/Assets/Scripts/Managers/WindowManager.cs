@@ -6,25 +6,44 @@ namespace DefaultNamespace.Managers
 {
     public class WindowManager : MonoBehaviour
     {
+
         [SerializeField]
         private Canvas _canvas;
 
-        [Header("Windows")] 
+        [Header("Windwos")] 
+        [SerializeField] 
+        private GameObject _loginScreen;
+        
+        [Header("Popups")] 
         [SerializeField] 
         private GameObject _infoPopup;
 
 
-        private void Start()
+        public void Awake()
         {
             AppController.WindowManager = this;
         }
 
+        public void OpenLoginWindow()
+        {
+            OpenScreen<LoginScreen>(_loginScreen, new Screen.ScreenData());
+        }
+
         public void ShowInfoPopup(string title, string message)
         {
-            var popup = Instantiate(_infoPopup, _canvas.transform);
-            if (popup.TryGetComponent<InfoPopup>(out var infoPopup))
+            OpenScreen<InfoPopup>(_infoPopup, new InfoPopup.InfoPopupData()
             {
-                infoPopup.SetData(title, message);
+                Title = title,
+                Message = message
+            });
+        }
+
+        private void OpenScreen<T>(GameObject screen, Screen.ScreenData data) where T:Screen
+        {
+            var window = Instantiate(screen, _canvas.transform);
+            if (window.TryGetComponent<T>(out var screenComponent))
+            {
+                screenComponent.SetData(data);
             }
         }
     }

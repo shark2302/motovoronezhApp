@@ -11,7 +11,7 @@ public class RequestManager : MonoBehaviour
     [SerializeField] 
     private string _url;
 
-    private void Start()
+    public void Awake()
     {
         AppController.RequestManager = this;
     }
