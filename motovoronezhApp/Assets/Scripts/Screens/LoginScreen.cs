@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class LoginScreen : MonoBehaviour
 {
+	
+	[SerializeField]
+	private RequestManager _requestManager;
+	
 	[SerializeField] 
 	private String SignUpURL;
 	
@@ -21,7 +25,7 @@ public class LoginScreen : MonoBehaviour
 		var password = _passwordField.text;
 		Debug.Log(login);
 		Debug.Log(password);
-		//TODO сделать запрос
+		_requestManager.SendLoginRequest(login, password, result => { Debug.Log(result.token);} );
 	}
 
 	public void OnSignUpButtonClicked()
