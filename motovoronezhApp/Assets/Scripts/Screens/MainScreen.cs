@@ -17,11 +17,13 @@ namespace Windows
 		[SerializeField]
 		private MainScreenTabData[] _tabDatas;
 
-		private GameObject _activePanel;
+		private MainScreenTabData _activePanel;
 
 		private void OnEnable()
 		{
-			_activePanel = _tabDatas[0].Panel;
+			_activePanel = _tabDatas[0];
+			_activePanel.Panel.SetActive(true);
+			_activePanel.ButtonImage.transform.localScale = new Vector3(1.3f, 1.3f);
 			for (int i = 1; i < _tabDatas.Length; i++)
 			{
 				_tabDatas[i].Panel.SetActive(false);
@@ -33,9 +35,11 @@ namespace Windows
 			var data = Array.Find(_tabDatas, tabData => tabData.Button == button);
 			if (data != null)
 			{
-				_activePanel.SetActive(false);
-				_activePanel = data.Panel;
-				_activePanel.SetActive(true);
+				_activePanel.Panel.SetActive(false);
+				_activePanel.ButtonImage.transform.localScale = new Vector3(1, 1);
+				_activePanel = data;
+				_activePanel.Panel.SetActive(true);
+				_activePanel.ButtonImage.transform.localScale = new Vector3(1.3f, 1.3f);
 			}
 		}
 		
