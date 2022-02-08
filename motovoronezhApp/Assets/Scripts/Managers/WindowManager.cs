@@ -16,6 +16,9 @@ namespace DefaultNamespace.Managers
         private GameObject _loginScreen;
 
         [SerializeField] 
+        private GameObject _mainScreen;
+
+        [SerializeField] 
         private GameObject _loading;
         
         [Header("Popups")] 
@@ -34,6 +37,12 @@ namespace DefaultNamespace.Managers
         {
             OpenScreen<LoginScreen>(_loginScreen, new Screen.ScreenData());
         }
+
+        public void OpenMainScreen()
+        {
+            _mainScreen.SetActive(true);
+        }
+        
 
         public void OpenLoadingScreen()
         {

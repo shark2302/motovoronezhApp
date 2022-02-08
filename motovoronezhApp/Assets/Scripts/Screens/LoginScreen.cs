@@ -24,12 +24,16 @@ public class LoginScreen : Screen
 		
 		if (login != String.Empty && password != String.Empty)
 		{
+			AppController.WindowManager.OpenLoadingScreen();
 			AppController.RequestManager.SendLoginRequest(login, password, (result, code) =>
 			{
+				AppController.WindowManager.CloseLoadingScreen();
 				switch (code)
 				{
 					case 200:
 						UserManager.SaveUserData(result);
+						AppController.WindowManager.OpenMainScreen();
+						Destroy(gameObject);
 						break;
 					case 401:
 						AppController.WindowManager.ShowInfoPopup("Неправильные данные", "Вы ввели неверный пароль или логин. Попробуйте еще раз");
@@ -38,7 +42,9 @@ public class LoginScreen : Screen
 						AppController.WindowManager.ShowInfoPopup("Непредвиденная ошибка", "Проверьте соединение с интернетом");
 						break;
 				}
+				
 			});
+			
 		}
 		else
 		{

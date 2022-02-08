@@ -20,4 +20,10 @@ public class RequestManager : MonoBehaviour
     {
         StartCoroutine(new LoginRequest(_url + "login", login, password, callback).Send());
     }
+    
+    
+    public void SendNewsRequest(int fromIndex, Action<NewsRequest.NewsRequestResult, int> callback)
+    {
+        StartCoroutine(new NewsRequest(_url + "get_all_news/", fromIndex, callback).Send());
+    }
 }

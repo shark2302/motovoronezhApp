@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Screens.Items
@@ -15,11 +16,15 @@ namespace Screens.Items
 		[SerializeField] 
 		private Text _text;
 
-		public void SetData(string title, string date, string text)
+		[SerializeField] 
+		private Text _name;
+
+		public void SetData(string title, string date, string text, string name)
 		{
 			_title.text = title;
 			_date.text = date;
 			_text.text = text;
+			_name.text = String.Format(_name.text, name);
 		}
 	}
 }

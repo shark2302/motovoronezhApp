@@ -1,4 +1,6 @@
 ﻿using System;
+using DefaultNamespace;
+using Request;
 using Screens.Items;
 using UnityEngine;
 
@@ -17,18 +19,31 @@ namespace Screens.MainScreenPanels
 		
 		private void OnEnable()
 		{
-			var sep =  Instantiate(_separator, _content.transform);
-			var item = Instantiate(_newPrefab, _content.transform);
-			item.GetComponent<NewItem>().SetData("asasd", "17.02.2020", "sdgadgfsoaisdgfjoafigjoiasjgoiasjdgfoiajdfsg");
-			var sep1 =  Instantiate(_separator, _content.transform);
-			var item1 = Instantiate(_newPrefab, _content.transform);
-			item1.GetComponent<NewItem>().SetData("dfasdfas", "17.03.2020", "aaaaaassdfasdgadgfsoaisdgfjoafigjoiasjgoiasjdgfoiajdfsg");
-			var sep3 =  Instantiate(_separator, _content.transform);
-			for (int i = 0; i < 20; i++)
+			AppController.RequestManager.SendNewsRequest(0, (result
+				, responcode) =>
 			{
-				var item2 = Instantiate(_newPrefab, _content.transform);
-				item2.GetComponent<NewItem>().SetData("dfasdfas", "17.03.2020", "aaaaaassdfasdgadgfsoaisdgfjoafigjoiasjgoiasjdgfoiajdfsg");
-				var sep4 =  Instantiate(_separator, _content.transform);
+				switch (responcode)
+				{
+					case 200:
+						CreateNews(result);
+						break;
+				}
+				
+			});
+		}
+
+		private void CreateNews(NewsRequest.NewsRequestResult responceResult)
+		{
+			Instantiate(_separator, _content.transform);
+			foreach (var result in responceResult.posts)
+			{
+				var go = Instantiate(_newPrefab, _content.transform);
+				if (go.TryGetComponent<NewItem>(out var item))
+				{
+					var date = DateTimeOffset.FromUnixTimeSeconds(result.data).UtcDateTime;
+					item.SetData(result.title, date.ToString(), result.message, result.user.username);
+				}
+				Instantiate(_separator, _content.transform);
 			}
 		}
 	}
