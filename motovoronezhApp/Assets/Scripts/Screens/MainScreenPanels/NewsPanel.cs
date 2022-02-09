@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using Request;
 using Screens.Items;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Screens.MainScreenPanels
 {
@@ -17,11 +19,27 @@ namespace Screens.MainScreenPanels
 		[SerializeField] 
 		private GameObject _separator;
 		
+		[SerializeField]
+		private GameObject _showMoreButton;
+
+		private GameObject _spawnedShowMoreButton;
+
+
+		private List<PostData> _news;
+		
 		private void OnEnable()
 		{
-			AppController.RequestManager.SendNewsRequest(0, (result
+			_news = new List<PostData>();
+			GetNewsFromServer(0);
+		}
+
+		private void GetNewsFromServer(int fromIndex)
+		{
+			AppController.WindowManager.OpenLoadingScreen();
+			AppController.RequestManager.SendNewsRequest(fromIndex, (result
 				, responcode) =>
 			{
+				AppController.WindowManager.CloseLoadingScreen();
 				switch (responcode)
 				{
 					case 200:
@@ -32,9 +50,19 @@ namespace Screens.MainScreenPanels
 			});
 		}
 
+		public void OnShowMoreButtonCLicked()
+		{
+			GetNewsFromServer(_news.Count);
+		}
+		
 		private void CreateNews(NewsRequest.NewsRequestResult responceResult)
 		{
-			Instantiate(_separator, _content.transform);
+			if (responceResult.posts.Length > 0 && _spawnedShowMoreButton != null)
+			{
+				Destroy(_spawnedShowMoreButton);
+			}
+			
+			_news.AddRange(responceResult.posts);
 			foreach (var result in responceResult.posts)
 			{
 				var go = Instantiate(_newPrefab, _content.transform);
@@ -44,6 +72,12 @@ namespace Screens.MainScreenPanels
 					item.SetData(result.title, date.ToString(), result.message, result.user.username);
 				}
 				Instantiate(_separator, _content.transform);
+			}
+
+			_spawnedShowMoreButton = Instantiate(_showMoreButton, _content.transform);
+			if (_spawnedShowMoreButton.TryGetComponent<Button>(out var button))
+			{
+				button.onClick.AddListener(OnShowMoreButtonCLicked);
 			}
 		}
 	}
