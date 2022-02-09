@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using Request;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class RequestManager : MonoBehaviour
 {
@@ -26,4 +27,27 @@ public class RequestManager : MonoBehaviour
     {
         StartCoroutine(new NewsRequest(_url + "get_all_news/", fromIndex, callback).Send());
     }
+
+
+    public void LoadImage(string url, Action<Texture> callback)
+    {
+        StartCoroutine(LoadImageRoutine(url, callback));
+    }
+
+    private IEnumerator LoadImageRoutine(string url, Action<Texture> callback)
+    {
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+        yield return www.SendWebRequest();
+
+        if (www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            Texture texture= ((DownloadHandlerTexture)www.downloadHandler).texture;
+            callback(texture);
+        }
+        
+        
+    }
+    
 }
