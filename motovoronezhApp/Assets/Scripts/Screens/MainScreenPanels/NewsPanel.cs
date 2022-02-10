@@ -66,7 +66,7 @@ namespace Screens.MainScreenPanels
 			foreach (var result in responceResult.posts)
 			{
 				var go = Instantiate(_newPrefab, _content.transform);
-				if (go.TryGetComponent<NewItem>(out var item))
+				if (go.TryGetComponent<PostItem>(out var item))
 				{
 					var date = DateTimeOffset.FromUnixTimeSeconds(result.data).UtcDateTime;
 					item.SetData(result.title, date.ToString(), result.message, result.user.username);

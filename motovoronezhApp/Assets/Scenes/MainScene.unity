@@ -1934,7 +1934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1664899760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1969,7 +1969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2008,6 +2008,8 @@ MonoBehaviour:
   _newPrefab: {fileID: 1533204014960554058, guid: c85884a826b06294e81fccdbb742761b,
     type: 3}
   _separator: {fileID: 1405493408470304674, guid: 0445b809c0e45284fb9c4608b8875677,
+    type: 3}
+  _showMoreButton: {fileID: 3324255180322526516, guid: 7ffbe039f0da04bee83abcb784436dfc,
     type: 3}
 --- !u!1 &1695154986
 GameObject:
@@ -2216,6 +2218,7 @@ GameObject:
   - component: {fileID: 1825203819}
   - component: {fileID: 1825203821}
   - component: {fileID: 1825203820}
+  - component: {fileID: 1825203822}
   m_Layer: 0
   m_Name: DalnoboyPanel
   m_TagString: Untagged
@@ -2280,6 +2283,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825203818}
   m_CullTransparentMesh: 0
+--- !u!114 &1825203822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825203818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69645e1e454648598f45a5524032be19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1870468515
 GameObject:
   m_ObjectHideFlags: 0
