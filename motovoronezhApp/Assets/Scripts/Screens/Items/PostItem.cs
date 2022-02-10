@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,58 +17,66 @@ namespace Screens.Items
 		private Text _date;
 		
 		[SerializeField] 
-		private Text _text;
-
-		[SerializeField] 
 		private Text _name;
-		
-		[SerializeField]
-		private GameObject _photoBlock;
 
+		[SerializeField]
+		private GameObject _content;
+		
 		[SerializeField] 
 		private GameObject _imagePrefab;
+
+		[SerializeField] 
+		private GameObject _textPrefab;
 		
-		
-		private List<string> _textureUrls;
 
 		public void SetData(string title, string date, string text, string name)
 		{
-			_textureUrls = new List<string>();
 			_title.text = title;
 			_date.text = date;
-			text = CheckImagesInText(text);
-			_text.text = text;
 			_name.text = String.Format(_name.text, name);
-			
-			SpawnImageItems();
+			CheckTextAndSpawnUIElements(text);
+		}
+		
+
+		private void SpawnImageItem(string url)
+		{
+			if (Instantiate(_imagePrefab, _content.transform).TryGetComponent<ImageItem>(out var imageItem))
+			{
+				imageItem.SetData(url);
+				Debug.Log(url);
+			}
+		}
+		
+		private void SpawnTextItem(string text)
+		{
+			if (Instantiate(_textPrefab, _content.transform).TryGetComponent<TextItem>(out var textItem))
+			{
+				textItem.SetData(text);
+			}
 		}
 
-		private string CheckImagesInText(string text)
+		private void CheckTextAndSpawnUIElements(string text)
 		{
+			String tempString = text;
 			Regex regex = new Regex(@"\[img].*\[\/img\]");
 			var matches = regex.Matches(text);
+			tempString = tempString.Replace("[b]", "<b>").Replace("[/b]", "</b>");
+			
+			if (matches.Count == 0)
+			{
+				SpawnTextItem(tempString);
+			}
+			
 			foreach (Match match in matches)
 			{
 				var value = match.Value;
-				text = text.Replace(value, string.Empty);
-				_textureUrls.Add(value.Replace("[img]", string.Empty).Replace("[/img]", string.Empty));
-			}
-
-			return text;
-		}
-
-		private void SpawnImageItems()
-		{
-			_photoBlock.SetActive(_textureUrls.Count > 0);
-			
-			foreach (var url in _textureUrls)
-			{
-				if (Instantiate(_imagePrefab, _photoBlock.transform).TryGetComponent<ImageItem>(out var imageItem))
-				{
-					imageItem.SetData(url);
-					Debug.Log(url);
-				}
+				var textArray = tempString.Split(new []{value}, StringSplitOptions.None);
+				SpawnTextItem(textArray[0]);
+				tempString = tempString.Replace(textArray[0], String.Empty);
+				SpawnImageItem(value.Replace("[img]", string.Empty).Replace("[/img]", string.Empty));
+				SpawnTextItem(textArray[1]);
 			}
 		}
+		
 	}
 }

@@ -38,9 +38,10 @@ public class RequestManager : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
-
-        if (www.isHttpError) {
-            Debug.Log(www.error);
+        
+        if (www.isNetworkError || www.isHttpError)
+        {
+            callback(null);
         }
         else {
             Texture texture= ((DownloadHandlerTexture)www.downloadHandler).texture;
