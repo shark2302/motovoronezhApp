@@ -231,6 +231,8 @@ MonoBehaviour:
     type: 3}
   _textPrefab: {fileID: 7843741675040021436, guid: 996cdbc9accd30248923dc5c8a70876b,
     type: 3}
+  _linkPrefab: {fileID: 322468333299559255, guid: f21f9e13af59743ecbde8a7d0f3ec228,
+    type: 3}
 --- !u!222 &7177908534501611486
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -28,6 +28,9 @@ namespace Screens.Items
 		[SerializeField] 
 		private GameObject _textPrefab;
 		
+		[SerializeField] 
+		private GameObject _linkPrefab;
+		
 
 		public void SetData(string title, string date, string text, string name)
 		{
@@ -53,11 +56,19 @@ namespace Screens.Items
 				textItem.SetData(text);
 			}
 		}
+		
+		private void SpawnLinkItem(string url, string text)
+		{
+			if (Instantiate(_linkPrefab, _content.transform).TryGetComponent<LinkItem>(out var linkItem))
+			{
+				linkItem.SetData(url, text);
+			}
+		}
 
 		private void CheckTextAndSpawnUIElements(string text)
 		{
 			String tempString = text;
-			Regex regex = new Regex(@"\[img].*\[\/img\]");
+			Regex regex = new Regex(@"\[img].*\[\/img\]|\[url=.*].*\[\/url\]");
 			var matches = regex.Matches(text);
 			tempString = tempString.Replace("[b]", "<b>").Replace("[/b]", "</b>");
 			
@@ -73,7 +84,15 @@ namespace Screens.Items
 				SpawnTextItem(textArray[0]);
 				if(textArray[0] != String.Empty)
 					tempString = tempString.Replace(textArray[0], String.Empty);
-				SpawnImageItem(value.Replace("[img]", string.Empty).Replace("[/img]", string.Empty));
+				if (value.Contains("[url") && !value.Contains("[img]"))
+				{
+					var array = value.Split(new [] {"]"}, StringSplitOptions.None);
+					SpawnLinkItem(array[0].Replace("[url=", string.Empty), array[1].Replace("[/url", string.Empty));
+				}
+				if (value.Contains("[img]"))
+				{
+					SpawnImageItem(value.Replace("[img]", string.Empty).Replace("[/img]", string.Empty));
+				}
 				SpawnTextItem(textArray[1]);
 			}
 		}
