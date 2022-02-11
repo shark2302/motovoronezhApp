@@ -26,15 +26,23 @@ namespace Screens.MainScreenPanels
 
 
 		private List<PostData> _news;
-		
-		private void OnEnable()
+
+
+		private void Awake()
 		{
 			_news = new List<PostData>();
-			GetNewsFromServer(0);
 		}
 
-		private void GetNewsFromServer(int fromIndex)
+		private void OnEnable()
 		{
+			if(_news.Count == 0)
+				GetPostsFromServer(0);
+		}
+
+		
+		protected virtual void GetPostsFromServer(int fromIndex)
+		{
+			
 			AppController.WindowManager.OpenLoadingScreen();
 			AppController.RequestManager.SendNewsRequest(fromIndex, (result
 				, responcode) =>
@@ -52,10 +60,10 @@ namespace Screens.MainScreenPanels
 
 		public void OnShowMoreButtonCLicked()
 		{
-			GetNewsFromServer(_news.Count);
+			GetPostsFromServer(_news.Count);
 		}
 		
-		private void CreateNews(NewsRequest.NewsRequestResult responceResult)
+		protected void CreateNews(PostsRequest.NewsRequestResult responceResult)
 		{
 			if (responceResult.posts.Length > 0 && _spawnedShowMoreButton != null)
 			{

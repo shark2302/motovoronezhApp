@@ -43,7 +43,6 @@ namespace Screens.Items
 			if (Instantiate(_imagePrefab, _content.transform).TryGetComponent<ImageItem>(out var imageItem))
 			{
 				imageItem.SetData(url);
-				Debug.Log(url);
 			}
 		}
 		
@@ -72,7 +71,8 @@ namespace Screens.Items
 				var value = match.Value;
 				var textArray = tempString.Split(new []{value}, StringSplitOptions.None);
 				SpawnTextItem(textArray[0]);
-				tempString = tempString.Replace(textArray[0], String.Empty);
+				if(textArray[0] != String.Empty)
+					tempString = tempString.Replace(textArray[0], String.Empty);
 				SpawnImageItem(value.Replace("[img]", string.Empty).Replace("[/img]", string.Empty));
 				SpawnTextItem(textArray[1]);
 			}

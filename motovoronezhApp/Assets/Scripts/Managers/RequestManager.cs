@@ -23,12 +23,17 @@ public class RequestManager : MonoBehaviour
     }
     
     
-    public void SendNewsRequest(int fromIndex, Action<NewsRequest.NewsRequestResult, int> callback)
+    public void SendNewsRequest(int fromIndex, Action<PostsRequest.NewsRequestResult, int> callback)
     {
-        StartCoroutine(new NewsRequest(_url + "get_all_news/", fromIndex, callback).Send());
+        StartCoroutine(new PostsRequest(_url + "get_all_news/", fromIndex, callback).Send());
+    }
+    
+    public void SendDalnoboyPostsRequest(int fromIndex, Action<PostsRequest.NewsRequestResult, int> callback)
+    {
+        StartCoroutine(new PostsRequest(_url + "get_all_dalnoboy/", fromIndex, callback).Send());
     }
 
-
+    
     public void LoadImage(string url, Action<Texture> callback)
     {
         StartCoroutine(LoadImageRoutine(url, callback));

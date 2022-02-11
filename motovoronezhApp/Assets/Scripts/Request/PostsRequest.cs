@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 namespace Request
 {
-    public class NewsRequest : RequestBase
+    public class PostsRequest : RequestBase
     {
 
         [System.Serializable]
@@ -15,12 +15,13 @@ namespace Request
         {
             public PostData[] posts;
         }
-        
 
+        
         private int _fromIndex;
+        private bool _isNews;
         private Action<NewsRequestResult, int> _callback;
         
-        public NewsRequest(string url, int fromIndex,Action<NewsRequestResult, int> callback ) : base(url)
+        public PostsRequest(string url, int fromIndex, Action<NewsRequestResult, int> callback ) : base(url)
         {
             _fromIndex = fromIndex;
             _callback = callback;
