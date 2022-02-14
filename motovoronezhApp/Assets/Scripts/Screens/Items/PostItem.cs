@@ -83,12 +83,16 @@ namespace Screens.Items
 			var value = firstMatch.Value;
 			var textArray = tempString.Split(new []{value}, StringSplitOptions.None);
 			CheckTextAndSpawnUIElements(textArray[0]);
-			if (value.Contains("[url") && !value.Contains("[img]"))
+			if (value.Contains("[url"))
 			{
 				var array = value.Split(new [] {"]"}, StringSplitOptions.None);
+				if (value.Contains("[img"))
+				{
+					array = value.Split(new [] {"[img]"}, StringSplitOptions.None);
+				}
 				SpawnLinkItem(array[0].Replace("[url=", string.Empty), array[1].Replace("[/url", string.Empty));
 			}
-			if (value.Contains("[img]"))
+			else if (value.Contains("[img]"))
 			{
 				SpawnImageItem(value.Replace("[img]", string.Empty).Replace("[/img]", string.Empty));
 			}
