@@ -70,31 +70,30 @@ namespace Screens.Items
 			String tempString = text;
 			Regex regex = new Regex(@"\[img].*\[\/img\]|\[url=.*].*\[\/url\]");
 			var matches = regex.Matches(text);
-			tempString = tempString.Replace("[b]", "<b>").Replace("[/b]", "</b>");
 			
 			if (matches.Count == 0)
 			{
+				tempString = tempString.Replace("[b]", "<b>").Replace("[/b]", "</b>");
 				SpawnTextItem(tempString);
+				return;
 			}
+
+			var firstMatch = matches[0];
 			
-			foreach (Match match in matches)
+			var value = firstMatch.Value;
+			var textArray = tempString.Split(new []{value}, StringSplitOptions.None);
+			CheckTextAndSpawnUIElements(textArray[0]);
+			if (value.Contains("[url") && !value.Contains("[img]"))
 			{
-				var value = match.Value;
-				var textArray = tempString.Split(new []{value}, StringSplitOptions.None);
-				SpawnTextItem(textArray[0]);
-				if(textArray[0] != String.Empty)
-					tempString = tempString.Replace(textArray[0], String.Empty);
-				if (value.Contains("[url") && !value.Contains("[img]"))
-				{
-					var array = value.Split(new [] {"]"}, StringSplitOptions.None);
-					SpawnLinkItem(array[0].Replace("[url=", string.Empty), array[1].Replace("[/url", string.Empty));
-				}
-				if (value.Contains("[img]"))
-				{
-					SpawnImageItem(value.Replace("[img]", string.Empty).Replace("[/img]", string.Empty));
-				}
-				SpawnTextItem(textArray[1]);
+				var array = value.Split(new [] {"]"}, StringSplitOptions.None);
+				SpawnLinkItem(array[0].Replace("[url=", string.Empty), array[1].Replace("[/url", string.Empty));
 			}
+			if (value.Contains("[img]"))
+			{
+				SpawnImageItem(value.Replace("[img]", string.Empty).Replace("[/img]", string.Empty));
+			}
+			CheckTextAndSpawnUIElements(textArray[1]);
+			
 		}
 		
 	}
