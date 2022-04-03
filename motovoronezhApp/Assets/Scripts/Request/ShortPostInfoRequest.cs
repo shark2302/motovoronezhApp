@@ -42,10 +42,6 @@ namespace Request
 			if (request.responseCode == 200)
 			{
 				ShortInfoPostRequestResult result = JsonUtility.FromJson<ShortInfoPostRequestResult>(json);
-				foreach (var p in result.posts)
-				{
-					Debug.Log(p.title + " " + p.user.username);
-				}
 				_callback(result, 200);
 			}
 			else if(request.responseCode == 401)

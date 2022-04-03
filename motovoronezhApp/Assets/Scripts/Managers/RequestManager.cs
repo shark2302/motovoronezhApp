@@ -38,6 +38,12 @@ public class RequestManager : MonoBehaviour
     {
         StartCoroutine(new ShortPostInfoRequest(_url + "get_all_short_posts_dalnoboy/", fromIndex, callback).Send());
     }
+    
+    public void SendMessageFromPostRequest(int postId,
+        Action<GetPostMessageRequest.PostMessage, int> callback)
+    {
+        StartCoroutine(new GetPostMessageRequest(_url + "get_message_from_post/", postId, callback).Send());
+    }
 
     
     public void LoadImage(string url, Action<Texture> callback)
