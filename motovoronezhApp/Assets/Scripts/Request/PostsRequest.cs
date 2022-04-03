@@ -30,11 +30,8 @@ namespace Request
         public override IEnumerator Send()
         {
 
-            UnityWebRequest request = UnityWebRequest.Get(_url+_fromIndex);
+            UnityWebRequest request = UnityWebRequest.Get(_url+_fromIndex +"?jwt=" + UserManager.GetUserToken());
             
-
-            request.SetRequestHeader("Authorization", "Bearer " + UserManager.GetUserToken());
-
             yield return request.SendWebRequest();
             Debug.Log(request.downloadHandler.text);
             string json = "{\"posts\":" + request.downloadHandler.text + "}";
