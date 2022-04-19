@@ -33,6 +33,9 @@ namespace Screens.Items
             {
                 _text.enabled = false;
                 _image.enabled = true;
+                _layoutElement.minWidth= DEFAULT_WIDTH;
+                _layoutElement.minHeight = DEFAULT_HEIGHT;
+                _rectTransform.sizeDelta = new Vector2(DEFAULT_WIDTH, DEFAULT_HEIGHT);
                 var imageUrl = text.Replace("[/img]]", string.Empty);
                 AppController.RequestManager.LoadImage(imageUrl, texture =>
                     {
@@ -44,13 +47,6 @@ namespace Screens.Items
                             _image.sprite = Sprite.Create((Texture2D) texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
                             _button.targetGraphic = _image;
                         }
-                        else
-                        {
-                            _layoutElement.minWidth= DEFAULT_WIDTH;
-                            _layoutElement.minHeight = DEFAULT_HEIGHT;
-                            _rectTransform.sizeDelta = new Vector2(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-                        }
-                    
                     }
                 );
             }

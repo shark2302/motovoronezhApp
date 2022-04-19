@@ -74,7 +74,7 @@ namespace Screens.MainScreenPanels
                 if (go.TryGetComponent<ShortPostItem>(out var item))
                 {
                     var date = DateTimeOffset.FromUnixTimeSeconds(result.data).UtcDateTime;
-                    item.SetData(result.title, result.user.username, date.ToString());
+                    item.SetData(result.title, result.user.username, date.ToString(), result.postId);
                 }
                 Instantiate(_separator, _content.transform);
             }

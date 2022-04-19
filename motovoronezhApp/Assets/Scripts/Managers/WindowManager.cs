@@ -1,6 +1,7 @@
 using System;
 using DefaultNamespace.Screens;
 using DefaultNamespace.Screens.Popups;
+using Screens;
 using UnityEngine;
 
 namespace DefaultNamespace.Managers
@@ -17,6 +18,9 @@ namespace DefaultNamespace.Managers
 
         [SerializeField] 
         private GameObject _mainScreen;
+
+        [SerializeField] 
+        private GameObject _postScreen;
 
         [SerializeField] 
         private GameObject _loading;
@@ -42,7 +46,17 @@ namespace DefaultNamespace.Managers
         {
             _mainScreen.SetActive(true);
         }
-        
+
+        public void OpenPostScreen(string title, string username, string date, string message)
+        {
+            OpenScreen<PostScreen>(_postScreen, new PostScreen.PostScreenData
+            {
+                Title = title,
+                Username = username,
+                Date = date,
+                Text = message
+            });
+        }
 
         public void OpenLoadingScreen()
         {
