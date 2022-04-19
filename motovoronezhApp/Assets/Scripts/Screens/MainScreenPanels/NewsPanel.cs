@@ -25,17 +25,17 @@ namespace Screens.MainScreenPanels
 		private GameObject _spawnedShowMoreButton;
 
 
-		private List<PostData> _news;
+		protected List<PostData> _posts;
 
 
 		private void Awake()
 		{
-			_news = new List<PostData>();
+			_posts = new List<PostData>();
 		}
 
 		private void OnEnable()
 		{
-			if(_news.Count == 0)
+			if(_posts.Count == 0)
 				GetPostsFromServer(0);
 		}
 
@@ -51,7 +51,7 @@ namespace Screens.MainScreenPanels
 				switch (responcode)
 				{
 					case 200:
-						CreateNews(result);
+						CreatePosts(result);
 						break;
 				}
 				
@@ -60,17 +60,17 @@ namespace Screens.MainScreenPanels
 
 		public void OnShowMoreButtonCLicked()
 		{
-			GetPostsFromServer(_news.Count);
+			GetPostsFromServer(_posts.Count);
 		}
 		
-		protected void CreateNews(PostsRequest.NewsRequestResult responceResult)
+		private void CreatePosts(PostsRequest.NewsRequestResult responceResult)
 		{
 			if (responceResult.posts.Length > 0 && _spawnedShowMoreButton != null)
 			{
 				Destroy(_spawnedShowMoreButton);
 			}
 			
-			_news.AddRange(responceResult.posts);
+			_posts.AddRange(responceResult.posts);
 			foreach (var result in responceResult.posts)
 			{
 				var go = Instantiate(_newPrefab, _content.transform);
