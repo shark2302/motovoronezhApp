@@ -12,6 +12,9 @@ public class RequestManager : MonoBehaviour
     [SerializeField] 
     private string _url;
 
+    [SerializeField] 
+    private string _imgBBApiUrl;
+
     public void Awake()
     {
         AppController.RequestManager = this;
@@ -43,6 +46,11 @@ public class RequestManager : MonoBehaviour
         Action<GetPostMessageRequest.PostMessage, int> callback)
     {
         StartCoroutine(new GetPostMessageRequest(_url + "get_message_from_post/", postId, callback).Send());
+    }
+
+    public void SendImageRequest(Texture2D image, Action<SendImageRequest.RequestData, int> callback)
+    {
+        StartCoroutine(new SendImageRequest(_imgBBApiUrl, image, callback).Send());
     }
 
     
