@@ -2482,8 +2482,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
+    m_Left: 20
+    m_Right: 20
     m_Top: 50
     m_Bottom: 50
   m_ChildAlignment: 1
@@ -2692,7 +2692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6bedb74a22714f919eefbca3c2af941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _url: http://127.0.0.1:5000/
+  _url: http://motovoronezh.ru/cgi-bin/app.py/
   _imgBBApiUrl: https://api.imgbb.com/1/upload?key=c132889f4677fc91bbec932b1fde1d30
 --- !u!4 &1724986238
 Transform:
@@ -3621,10 +3621,10 @@ RectTransform:
   m_Father: {fileID: 4505265650375244072}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 270, y: -910.36}
+  m_SizeDelta: {x: 540, y: 100.24002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &4505265650375244072
 RectTransform:
@@ -3664,7 +3664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4505265650375244074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3703,6 +3703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 2019643943}
+  _image1: {fileID: 0}
 --- !u!224 &4505265650682908656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3720,10 +3721,10 @@ RectTransform:
   m_Father: {fileID: 4505265650375244072}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 270, y: -430.12}
+  m_SizeDelta: {x: 540, y: 860.24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4505265650682908657
 GameObject:
