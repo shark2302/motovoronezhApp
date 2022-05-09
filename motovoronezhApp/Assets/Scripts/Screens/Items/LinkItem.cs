@@ -1,6 +1,8 @@
+using System;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Screens.Items
@@ -27,7 +29,7 @@ namespace Screens.Items
         
         private string _url;
 
-        public void SetData(string url, string text)
+        public void SetData(string url, string text, UnityAction buttonAction = null)
         {
             if (text.Contains("[/img]"))
             {
@@ -59,6 +61,12 @@ namespace Screens.Items
                 
             }
             _url = url;
+            
+            if (buttonAction != null)
+            {
+                _button.onClick.RemoveAllListeners();
+                _button.onClick.AddListener(buttonAction);
+            }
         }
 
         public void OnLinkButtonClick()

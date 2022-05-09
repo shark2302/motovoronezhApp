@@ -48,6 +48,11 @@ public class RequestManager : MonoBehaviour
         StartCoroutine(new GetPostMessageRequest(_url + "get_message_from_post/", postId, callback).Send());
     }
 
+    public void GetAllEventsRequest(Action<GetAllEvents.GetAllEventsResult, int> callback)
+    {
+        StartCoroutine(new GetAllEvents(_url + "get_all_events/", callback).Send());
+    }
+
     public void SendImageRequest(Texture2D image, Action<SendImageRequest.RequestData, int> callback)
     {
         StartCoroutine(new SendImageRequest(_imgBBApiUrl, image, callback).Send());
