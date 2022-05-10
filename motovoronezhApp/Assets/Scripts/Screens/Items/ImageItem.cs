@@ -24,7 +24,7 @@ namespace Screens.Items
                 {
                     if (texture != null)
                     {
-                        var width = texture.width > 1250 ? 100 : texture.width; 
+                        var width = texture.width > 600 ? 100 : texture.width; 
                         _layoutElement.minWidth= width;
                         _layoutElement.minHeight = texture.height;
                         _rectTransform.sizeDelta = new Vector2(width, texture.height);

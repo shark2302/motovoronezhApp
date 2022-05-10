@@ -43,9 +43,10 @@ namespace Screens.Items
                     {
                         if (texture != null)
                         {
-                            _layoutElement.minWidth= texture.width;
+                            var width = texture.width > 600 ? 100 : texture.width; 
+                            _layoutElement.minWidth= width;
                             _layoutElement.minHeight = texture.height;
-                            _rectTransform.sizeDelta = new Vector2(texture.width, texture.height);
+                            _rectTransform.sizeDelta = new Vector2(width, texture.height);
                             _image.sprite = Sprite.Create((Texture2D) texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
                             _button.targetGraphic = _image;
                         }
